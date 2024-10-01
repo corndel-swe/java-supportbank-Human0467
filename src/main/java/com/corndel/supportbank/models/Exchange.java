@@ -54,8 +54,8 @@ public class Exchange {
         // hold exchange rates in 2s array of doubles
         //USD   GBP   EUR  --> toCurrency
         double[][] exchangeRates = { {1.00, 0.75, 0.89 }, // USD
-                {1.34, 1.00, 1.20},  // GBP
-                {1.12, 0.84, 1.00}}; // EUR  fromCurrency
+                                     {1.34, 1.00, 1.20},  // GBP
+                                     {1.12, 0.84, 1.00}}; // EUR  fromCurrency
 
         return exchangeRates[currencyToIndex.get(fromCurrency)][currencyToIndex.get(toCurrency)];
     }
