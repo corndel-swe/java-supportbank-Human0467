@@ -2,13 +2,15 @@ package com.corndel.supportbank;
 
 import com.corndel.supportbank.controllers.BillController;
 import com.corndel.supportbank.controllers.CurrencyController;
+import com.corndel.supportbank.controllers.TransactionController;
 import com.github.tomaslanger.chalk.Chalk;
 import picocli.CommandLine;
 
 import picocli.CommandLine.Command;
 
 
-@Command(name = "bank", subcommands = {BillController.class, CurrencyController.class})
+@Command(name = "bank", subcommands = {BillController.class, CurrencyController.class,
+        TransactionController.class})
 public class SupportBank implements Runnable {
 
   public static void main(String[] args) {
