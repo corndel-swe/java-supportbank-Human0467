@@ -1,5 +1,7 @@
 package com.corndel.supportbank.models;
 
+import java.util.HashMap;
+
 public class CurrencyExchange {
 
     String fromCurrency;
@@ -37,6 +39,7 @@ public class CurrencyExchange {
     }
 
     // use hashmap to link currency to index
+    HashMap<String, Double> currencyToIndex= new HashMap<String, Double>;
 
     // hold exchange rates in 2s array of doubles
 }
