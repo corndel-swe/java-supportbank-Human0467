@@ -26,21 +26,20 @@ public class Adder {
     try {
       filePath = Paths.get("src", "data", fileName);
       nums = Files.readAllLines(filePath);
+      // TODO: Add up the numbers
+      // Hint: Use a loop
+      // Hint: Use Integer.parseInt
+      int sum = 0;
+      for(String num : nums){
+        sum += Integer.parseInt(num);
+      }
+      // TODO: Return the sum
+      return sum;
+
     } catch (Exception e){
       System.out.println("something went wrong");
+      return -1;
     }
-
-    // TODO: Add up the numbers
-    // Hint: Use a loop
-    // Hint: Use Integer.parseInt
-    int sum = 0;
-    for(String num : nums){
-      sum += Integer.parseInt(num);
-    }
-
-    // TODO: Return the sum
-    return sum;
-
   }
 
   /**
