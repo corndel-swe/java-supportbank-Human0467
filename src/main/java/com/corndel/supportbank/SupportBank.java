@@ -1,6 +1,7 @@
 package com.corndel.supportbank;
 
 import com.corndel.supportbank.controllers.BillController;
+import com.corndel.supportbank.controllers.CurrencyExchangeController;
 import com.github.tomaslanger.chalk.Chalk;
 import picocli.CommandLine;
 
@@ -9,7 +10,7 @@ import java.util.Arrays;
 import picocli.CommandLine.Command;
 
 
-@Command(name = "bank", subcommands = {BillController.class})
+@Command(name = "bank", subcommands = {BillController.class, CurrencyExchangeController.class})
 public class SupportBank implements Runnable {
 
   public static void main(String[] args) {
