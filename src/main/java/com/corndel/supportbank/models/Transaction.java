@@ -40,7 +40,7 @@ public class Transaction {
         HashMap<String, Double> balances = new HashMap<>();
 
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append(transactions.get(1));
+        stringBuilder.append(transactions.get(0));
         stringBuilder.append("\n");
 
         for(int i =  1; i < this.transactions.size(); i++){
