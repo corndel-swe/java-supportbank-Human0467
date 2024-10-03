@@ -1,6 +1,9 @@
 package com.corndel.supportbank.models;
 
-import java.util.HashMap;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import kong.unirest.Unirest;
+
+import io.github.cdimascio.dotenv.Dotenv;
 
 public class Exchange {
 
@@ -39,24 +42,100 @@ public class Exchange {
     }
 
     // use hashmap to link currency to index
-    public double makeExchange(Double amount, String fromCurrency, String toCurrency) {
-        return amount*getRate(fromCurrency, toCurrency);
+    public double makeExchange() {
+        return this.amount*fetchRateFree(this.fromCurrency, this.toCurrency);
 
     }
 
-    public double getRate(String fromCurrency, String toCurrency){
+    //~~~~~~~~~~~~~~~ depreciated - use fetchRate instead! ~~~~~~~~~~~~
+//    public double getRate(String fromCurrency, String toCurrency){
+//
+//        HashMap<String, Integer> currencyToIndex = new HashMap<String, Integer>();
+//        currencyToIndex.put("USD", 0);
+//        currencyToIndex.put("GBP", 1);
+//        currencyToIndex.put("EUR", 2);
+//
+//        // hold exchange rates in 2s array of doubles
+//        //USD   GBP   EUR  --> toCurrency
+//        double[][] exchangeRates = { {1.00, 0.75, 0.89 }, // USD
+//                                     {1.34, 1.00, 1.20},  // GBP
+//                                     {1.12, 0.84, 1.00}}; // EUR  fromCurrency
+//
+//        return exchangeRates[currencyToIndex.get(fromCurrency)][currencyToIndex.get(toCurrency)];
+//    }
 
-        HashMap<String, Integer> currencyToIndex = new HashMap<String, Integer>();
-        currencyToIndex.put("USD", 0);
-        currencyToIndex.put("GBP", 1);
-        currencyToIndex.put("EUR", 2);
+//    public double fetchRate(String fromCurrency, String toCurrency){
+//        Dotenv dotenv = Dotenv.load();
+//        String appID = dotenv.get("OPEN_EXCHANGE_RATES_APP_ID");
+//        String url = "https://openexchangerates.org/api/latest.json";
+//        String response = Unirest.get(url)
+//                .header("Content-Type", "application/json")
+//                .queryString("app_id", appID)
+//                .queryString("base", fromCurrency)
+//                .queryString("symbols", toCurrency)
+//                .asString()
+//                .getBody();
+//
+//        ObjectMapper objectMapper = new ObjectMapper();
+//
+//        double rate = 0;
+//        try {
+//             rate = objectMapper.readTree(response)
+//                    .get("rates")
+//                    .get(toCurrency).asDouble();
+//        }catch (Exception e){
+//            System.out.println("Something went wrong!");
+//            e.printStackTrace();
+//        }
+//
+//        return rate;
+//    }
 
-        // hold exchange rates in 2s array of doubles
-        //USD   GBP   EUR  --> toCurrency
-        double[][] exchangeRates = { {1.00, 0.75, 0.89 }, // USD
-                                     {1.34, 1.00, 1.20},  // GBP
-                                     {1.12, 0.84, 1.00}}; // EUR  fromCurrency
+    // makes 2 requests to circumvent limitation of API - can only get base = "USD"
+    // if USD * rate1 = XXX and USD * rate2 = YYY
+    // .: XXX = (rate2/rate1)*YYYY
+    public double fetchRateFree(String fromCurrency, String toCurrency){
+        Dotenv dotenv = Dotenv.load();
+        String appID = dotenv.get("OPEN_EXCHANGE_RATES_APP_ID");
+        String url = "https://openexchangerates.org/api/latest.json";
 
-        return exchangeRates[currencyToIndex.get(fromCurrency)][currencyToIndex.get(toCurrency)];
+        // get rate USD to currency1:
+        String rate1 = Unirest.get(url)
+                .header("Content-Type", "application/json")
+                .queryString("app_id", appID)
+                .queryString("base", "USD")
+                .queryString("symbols", fromCurrency)
+                .asString()
+                .getBody();
+
+        // get rate USD to currency2:
+        String rate2 = Unirest.get(url)
+                .header("Content-Type", "application/json")
+                .queryString("app_id", appID)
+                .queryString("base", "USD")
+                .queryString("symbols", toCurrency)
+                .asString()
+                .getBody();
+
+        ObjectMapper objectMapper = new ObjectMapper();
+
+        double effectiveRate = 0;
+        try {
+            effectiveRate =
+                            objectMapper.readTree(rate2)
+                            .get("rates")
+                            .get(toCurrency).asDouble()
+                    /
+                            objectMapper.readTree(rate1)
+                            .get("rates")
+                            .get(fromCurrency).asDouble();
+        }catch (Exception e){
+            System.out.println("Something went wrong!");
+            e.printStackTrace();
+        }
+
+        return effectiveRate;
     }
+
+
 }

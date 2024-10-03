@@ -15,6 +15,9 @@ public class SummariserService implements Runnable {
     @CommandLine.Parameters(index = "0")
     private String fileName;
 
+    @CommandLine.Option(names = {"-c", "--currency"})
+    private String outputCurrency;
+
     @Override
     public void run() {
         List<String> transactions = new ArrayList<>();
@@ -25,11 +28,15 @@ public class SummariserService implements Runnable {
             e.printStackTrace();
         }
 
-        Transaction transaction = new Transaction(transactions);
+
+        Transaction transaction = this.outputCurrency == null ?
+                new Transaction(transactions) :
+                new Transaction(transactions, this.outputCurrency);
 
         // summarise
         HashMap<String, Double> balances = transaction.summarise();
         // print
+        System.out.println("All amounts listed in " + transaction.getOutputCurrency());
         for(String name : balances.keySet()){
             System.out.println(String.format("%s : %.2f", name, balances.get(name)));
         }

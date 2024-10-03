@@ -18,8 +18,9 @@ public class CurrencyService implements Runnable{
     @Override
     public void run() {
         Exchange exchange = new Exchange(fromCurrency, toCurrency, amount);
-        System.out.println(exchange);
         System.out.println(String.format("%.2f %s in %s is %.2f", amount, fromCurrency, toCurrency,
-                exchange.makeExchange(amount, fromCurrency, toCurrency)));
+                exchange.makeExchange()));
+
+
     }
 }
