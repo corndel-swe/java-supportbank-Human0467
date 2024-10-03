@@ -1,6 +1,9 @@
 package com.corndel.supportbank.exercises;
 
-// import kong.unirest.Unirest;
+import kong.unirest.HttpRequest;
+import kong.unirest.HttpResponse;
+import kong.unirest.RequestBodyEntity;
+import kong.unirest.Unirest;
 
 /**
  * This class represents a Message to be sent to the Postman Echo API.
@@ -27,13 +30,25 @@ public class Postman {
    * @return The response body from the Postman Echo API
    */
   public static String echoMessage(int id, String content) {
-    // TODO: Create a Message object with the given id and content
+    // Create a Message object with the given id and content
+    Message message = new Message(id, content);
+    String url = "https://postman-echo.com/post";
 
-    // TODO: Post the Message object to the Postman Echo API
+    // Post the Message object to the Postman Echo API
     // Hint: Use Unirest.post()
 
-    // TODO: Return the response body as a string of JSON
-    return null;
+    // requests made once as[Type]() is invoked, possible types include
+    // Json, String, Object Empty and File.
+
+    // https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Type
+    // Unless you specify otherwise the default Content-Type is text/plain; charset=UTF-8
+    HttpResponse<String> response = Unirest.post(url)
+            .header("Content-Type", "application/json")
+            .body(message)
+            .asString();
+
+    // Return the response body as a string of JSON
+    return response.getBody();
   }
 
   /**

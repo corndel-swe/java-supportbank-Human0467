@@ -17,6 +17,25 @@
     <!-- https://tech-docs.corndel.com/java/making-a-cli.html#installing-picocli -->
 
     <dependency>
+      <groupId>info.picocli</groupId>
+      <artifactId>picocli</artifactId>
+      <version>4.7.6</version>
+    </dependency>
+
+    <dependency>
+      <groupId>com.github.tomas-langer</groupId>
+      <artifactId>chalk</artifactId>
+      <version>1.0.2</version>
+    </dependency>
+
+    <!-- https://mvnrepository.com/artifact/com.konghq/unirest-objectmapper-jackson -->
+    <dependency>
+      <groupId>com.konghq</groupId>
+      <artifactId>unirest-objectmapper-jackson</artifactId>
+      <version>4.2.9</version>
+    </dependency>
+
+    <dependency>
       <groupId>com.konghq</groupId>
       <artifactId>unirest-java</artifactId>
       <version>3.13.10</version>
@@ -27,7 +46,6 @@
       <artifactId>unirest-modules-jackson</artifactId>
       <version>4.4.0</version>
     </dependency>
-
 
     <dependency>
       <groupId>io.github.cdimascio</groupId>

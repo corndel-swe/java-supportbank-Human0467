@@ -19,6 +19,7 @@ public class D2E3Test {
       assertEquals(2, element.getPeriod());
       assertEquals(1, element.getGroup());
     } catch (IOException e) {
+      System.out.println("Test went wrong..");
       e.printStackTrace();
     }
   }

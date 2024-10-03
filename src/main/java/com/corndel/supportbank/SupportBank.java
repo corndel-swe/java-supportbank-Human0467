@@ -1,8 +1,26 @@
 package com.corndel.supportbank;
 
-public class SupportBank {
+import com.corndel.supportbank.controllers.BillController;
+import com.corndel.supportbank.controllers.CurrencyController;
+import com.corndel.supportbank.controllers.TransactionController;
+import com.github.tomaslanger.chalk.Chalk;
+import picocli.CommandLine;
+
+import picocli.CommandLine.Command;
+
+
+@Command(name = "bank", subcommands = {BillController.class, CurrencyController.class,
+        TransactionController.class})
+public class SupportBank implements Runnable {
 
   public static void main(String[] args) {
-    System.out.println("Build your CLI here!");
+    CommandLine commandLine = new CommandLine(new SupportBank());
+    int exitCode = commandLine.execute(args);
+    System.exit(exitCode);
+  }
+
+  @Override
+  public void run() {
+    System.out.println(Chalk.on("Welcome to the support bank!").green());
   }
 }

@@ -1,10 +1,11 @@
 package com.corndel.supportbank.exercises;
 
 import java.io.IOException;
-// import java.nio.file.*;
-// import java.util.List;
+import java.nio.file.*;
+import java.util.ArrayList;
+import java.util.List;
 
-// import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class Element {
   /**
@@ -20,12 +21,27 @@ public class Element {
     // TODO: Read the .json file as a string
     // Hint: Use Paths.get() and Files.readAllLines()
     // Hint: Use String.join()
+    Path filePath;
+    List<String> lines = new ArrayList<>();
+    String jsonString;
+
+    try {
+      filePath = Paths.get("src", "data", "elements", fileName);
+      lines = Files.readAllLines(filePath);
+    } catch (Exception e){
+      System.out.println("something went wrong!!");
+    }
 
     // TODO: Convert the json to an instance of Element
     // Hint: Use Jackson's ObjectMapper to map the json to Element.class
+    jsonString = String.join("", lines);
+    System.out.print(jsonString);
+    ObjectMapper objectMapper = new ObjectMapper();
+    Element element = objectMapper.readValue(jsonString, Element.class);
 
     // TODO: Return the Element
-    return null;
+    System.out.println(element.toString());
+    return element;
   }
 
   /**
