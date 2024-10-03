@@ -92,7 +92,7 @@ public class PokeAPI {
   public static void main(String[] args) {
     try {
       //Pokemon pokemon = getPokemonByName("pikachu");
-      ArrayList<Pokemon> pokemon = getAllPokemon();
+      //ArrayList<Pokemon> pokemon = getAllPokemon();
       //System.out.println(pokemon);
     } catch (Exception e) {
       e.printStackTrace();
