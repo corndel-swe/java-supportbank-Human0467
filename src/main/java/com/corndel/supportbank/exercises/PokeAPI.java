@@ -42,6 +42,18 @@ public class PokeAPI {
     ObjectMapper objectMapper = new ObjectMapper();
 
     return objectMapper.readValue(response, Pokemon.class);
+
+    /* why doesn't this work? I added
+    * https://mvnrepository.com/artifact/com.konghq/unirest-objectmapper-jackson/4.2.9
+    * to the pom.xml and reloaded the project
+    */
+
+//    Pokemon pokemon = Unirest.get(url)
+//            .routeParam("name", name)
+//            .asObject(Pokemon.class)
+//            .getBody();
+//
+//    return pokemon;
   }
 
   /**
