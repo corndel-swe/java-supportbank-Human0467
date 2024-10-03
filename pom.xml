@@ -28,6 +28,13 @@
       <version>1.0.2</version>
     </dependency>
 
+    <!-- https://mvnrepository.com/artifact/com.konghq/unirest-objectmapper-jackson -->
+    <dependency>
+      <groupId>com.konghq</groupId>
+      <artifactId>unirest-objectmapper-jackson</artifactId>
+      <version>4.2.9</version>
+    </dependency>
+
     <dependency>
       <groupId>com.konghq</groupId>
       <artifactId>unirest-java</artifactId>
