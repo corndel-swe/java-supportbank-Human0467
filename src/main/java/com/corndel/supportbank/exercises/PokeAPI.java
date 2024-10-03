@@ -5,6 +5,9 @@ import kong.unirest.Unirest;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.core.type.TypeReference;
+
+import java.util.ArrayList;
 
 /**
  * This class represents a Pokemon. It uses Java's record syntax to
@@ -56,15 +59,44 @@ public class PokeAPI {
 //    return pokemon;
   }
 
+//  public static ArrayList<Pokemon> getAllPokemon(){
+//    // Create the url by appending the name to the base url
+//    String url = "https://pokeapi.co/api/v2/pokemon/";
+//
+//    // Make a GET request to the url
+//    // Hint: Use Unirest.get()
+//    String response = Unirest.get(url)
+//            .asString()
+//            .getBody();
+//
+//    ArrayList<Pokemon> pokeArray = new ArrayList<>();
+//
+//    System.out.println(response);
+//    ObjectMapper objectMapper = new ObjectMapper();
+//    try {
+//      var tree = objectMapper.readTree(response);
+//      var pokemons = tree
+//              .get("results");
+//      for (var pokemon : pokemons) {
+//
+//      }
+//    }catch(Exception e){
+//      e.printStackTrace();
+//    }
+//    return new ArrayList<Pokemon>();
+//  }
+
   /**
    * For debugging purposes..
    */
   public static void main(String[] args) {
     try {
-      Pokemon pokemon = getPokemonByName("pikachu");
-      System.out.println(pokemon);
+      //Pokemon pokemon = getPokemonByName("pikachu");
+      ArrayList<Pokemon> pokemon = getAllPokemon();
+      //System.out.println(pokemon);
     } catch (Exception e) {
       e.printStackTrace();
     }
   }
+
 }
