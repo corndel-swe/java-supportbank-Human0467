@@ -28,11 +28,14 @@ public class PokeAPI {
    */
   public static Pokemon getPokemonByName(String name) throws Exception {
     // Create the url by appending the name to the base url
-    String url = "https://pokeapi.co/api/v2/pokemon/" + name;
+    String url = "https://pokeapi.co/api/v2/pokemon/{name}";
 
     // Make a GET request to the url
     // Hint: Use Unirest.get()
-    String response = Unirest.get(url).asString().getBody();
+    String response = Unirest.get(url)
+            .routeParam("name", name)
+            .asString()
+            .getBody();
 
     // Parse the response body into a Pokemon object
     // Hint: Use Jackson's ObjectMapper to map the response body to Pokemon.class
